@@ -3,6 +3,7 @@ import type { Page } from '../types/page'
 import type { Ingredients, IngredientsSearchParam } from './types'
 
 
+
 /**
  * 接口
  * POST /dishes-service/ingredients
@@ -28,5 +29,25 @@ export const addIngredients = (form: Ingredients) => {
         url: API,
         method: 'post',
         data: form
+    })
+}
+/** 
+ * 更新
+ */
+export const updateIngredients = (id:number,form: Ingredients) => {
+    return request<any,any,Ingredients>({
+        url: API + `/${id}`,
+        method: 'put',
+        data: form
+    })
+}
+
+/**
+ * 删除 delete/ingredients/{id}
+ */
+export const deleteIngredients = (id:number) => {
+    return request<any>({
+        url: API + `/${id}`,
+        method:'delete'
     })
 }
