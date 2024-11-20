@@ -51,3 +51,10 @@ export const deleteIngredients = (id:number) => {
         method:'delete'
     })
 }
+
+export const listByType = (type: string) => {
+    return request<Ingredients[],Ingredients[]>({
+        url: API + `/listByType?type=${type}`,
+        method:'get'
+    })
+}

@@ -21,7 +21,7 @@ const base_url = import.meta.env.VITE_APP_BASE_API
 const queryFormRef = ref()
 const queryForm = reactive<IngredientsSearchParam>({
     pageNum: 1,
-    pageSize: 1,
+    pageSize: 5,
     name: '',
     type: ''
 })
@@ -171,8 +171,8 @@ const handleDelete = (id: number) => {
             type: 'warning',
         }
     )
-        .then(() => {
-            deleteIngredients(id).then(() => {
+        .then(async () => {
+            await deleteIngredients(id).then(() => {
                 ElMessage({
                     type: 'success',
                     message: '删除成功!',
@@ -236,7 +236,7 @@ listIngredients()
 
             </el-table-column>
         </el-table>
-        <el-pagination style="margin-top: 10px           ;" background :total="total" :page-sizes="[1, 5, 10, 50, 100]"
+        <el-pagination style="margin-top: 10px           ;" background :total="total" :page-sizes="[5, 10, 50, 100]"
             layout="total, sizes, prev, pager, next, jumper" v-model:page-size="queryForm.pageSize"
             v-model:current-page="queryForm.pageNum" @current-change="listIngredients"
             @size-change="listIngredients()"></el-pagination>
