@@ -76,7 +76,7 @@
             <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>Admin</el-dropdown-item>
+                <el-dropdown-item>{{ tokenStore.getUsername }}</el-dropdown-item>
                 <el-dropdown-item>退出</el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -97,6 +97,9 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import {useRoute} from 'vue-router'
+import { userTokenStore } from '@/stores/useTokenStore';
+
+const tokenStore = userTokenStore()
 /* 是否折叠左侧边栏 */
 const isCollapse = ref(false)
 const route = useRoute()
