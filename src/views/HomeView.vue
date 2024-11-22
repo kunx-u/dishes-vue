@@ -77,7 +77,7 @@
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item>{{ tokenStore.getUsername }}</el-dropdown-item>
-                <el-dropdown-item>退出</el-dropdown-item>
+                <el-dropdown-item @click="logout">退出</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -96,14 +96,21 @@
 
 <script setup lang="ts">
 import {ref} from 'vue'
-import {useRoute} from 'vue-router'
-import { userTokenStore } from '@/stores/useTokenStore';
+import {useRoute, useRouter} from 'vue-router'
+import {useTokenStore} from '@/stores/useTokenStore'
 
-const tokenStore = userTokenStore()
+const tokenStore = useTokenStore()
+
 /* 是否折叠左侧边栏 */
 const isCollapse = ref(false)
 const route = useRoute()
+const router = useRouter()
 
+/* 退出 清空token 跳转到登录路由 */
+const logout = () => {
+  tokenStore.clearToken()
+  router.push('/login')
+}
 </script>
 
 <style scoped>

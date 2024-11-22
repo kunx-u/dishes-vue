@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    订单
+  订单
 </template>
 
 <style scoped>
