@@ -1,35 +1,39 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
-import type { Token } from '@/api/auth/types'
+import {ref, computed} from 'vue'
+import {defineStore} from 'pinia'
+import type {Token} from '@/api/auth/types'
 
-export const userTokenStore = defineStore("token", () => {
-    const tokenInfo = ref<Token>({
-        username: '',
-        token: ''
-    })
+export const useTokenStore = defineStore("token", () => {
+  // state
+  const tokenInfo = ref<Token>({
+    username: '',
+    token: ''
+  })
 
+  /* action: 设置token */
+  const setToken = (token: Token) => {
+    tokenInfo.value = token
+  }
 
-    const setToken = (token: Token) => {
-        tokenInfo.value = token
+  /* action: 清空token */
+  const clearToken = () => {
+    tokenInfo.value = {
+      username: '',
+      token: ''
     }
+  }
 
-    const clearToken = () => {
-        tokenInfo.value = {
-            username: '',
-            token: ''
-        }
-    }
+  /* getter */
+  const getUsername = computed(() => tokenInfo.value.username)
 
-    const getUsername = computed(() => tokenInfo.value.username)
+  /* getter */
+  const getToken = computed(() => tokenInfo.value.token)
 
-    const getToken = computed(() => tokenInfo.value.token)
+  return {tokenInfo, setToken, clearToken, getUsername, getToken}
 
-    return { tokenInfo, setToken, clearToken, getUsername, getToken }
 }, {
-    persist: {
-        enabled: true,
-        key: "tokenStore",
-        // 默认是 localStorage
-        storage: sessionStorage,
-    }
+  persist: {
+    key: "tokenStore",
+    // 默认是 localStorage
+    storage: sessionStorage,
+  }
 })
